@@ -38,6 +38,7 @@ RUN rm -rf .scripts pnpm-*.yaml packages/cloud
 
 ###### [STAGE] Seal ######
 FROM node:20-alpine as app
+RUN apk add --no-cache nginx
 WORKDIR /etc/logto
 COPY --from=builder /etc/logto .
 COPY ./entrypoint.sh .
@@ -45,4 +46,4 @@ RUN chmod +x ./entrypoint.sh
 RUN mkdir -p /etc/logto/packages/cli/alteration-scripts && chmod g+w /etc/logto/packages/cli/alteration-scripts
 EXPOSE 3001
 ENTRYPOINT ["./entrypoint.sh"]
-CMD ["npm", "run", "start"]
+CMD ["nginx", "-g", "daemon off;"]
