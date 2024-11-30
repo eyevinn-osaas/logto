@@ -13,7 +13,7 @@ export ADMIN_ENDPOINT="${SERVER_NAME}"
 cat > /etc/nginx/http.d/default.conf <<EOF
 server {
   listen $EXT_PORT;
-  server_name $SERVER_NAME;
+  server_name _;
 
   location ^~ /console {
     proxy_set_header Host \$host;
